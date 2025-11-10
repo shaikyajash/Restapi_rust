@@ -1,24 +1,23 @@
 mod api;
 mod models;
 
-use axum::{
-    response::Json,
-    routing::get,
-    Router,
-};
+use axum::{response::Json, routing::get, Router};
 
 use api::{get_address_handler, get_evm_address_handler};
 
-#[tokio::main] 
+#[tokio::main]
 async fn main() {
     // Load environment variables from .env file
     dotenvy::dotenv().ok();
-    
+
     // Build the router with routes
     let app = Router::new()
         .route("/", get(root_handler))
         .route("/btc/:address", get(get_address_handler))
-        .route("/evm/:chain_identifier/:address", get(get_evm_address_handler));
+        .route(
+            "/evm/:chain_identifier/:address",
+            get(get_evm_address_handler),
+        );
 
     // Define the address to listen on
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8080")

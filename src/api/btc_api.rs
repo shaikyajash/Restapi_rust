@@ -1,5 +1,8 @@
 use crate::models::{AddressInfo, AddressResponse, AddressWithPagination, Pagination};
-use axum::{extract::{Path, Query}, response::Json};
+use axum::{
+    extract::{Path, Query},
+    response::Json,
+};
 use reqwest::StatusCode;
 use serde::Deserialize;
 
@@ -27,7 +30,7 @@ pub async fn fetch_address_info(
 ) -> Result<AddressInfo, anyhow::Error> {
     // Blockchain.info API has a max limit of 50
     let limit = limit.min(50);
-    
+
     let url = format!(
         "https://blockchain.info/rawaddr/{}?offset={}&limit={}",
         address, offset, limit
@@ -55,10 +58,10 @@ pub async fn get_address_handler(
     // Ensure page is at least 1
     let page = params.page.max(1);
     let limit = params.limit.max(1).min(50);
-    
+
     // Calculate offset from page number (page 1 = offset 0)
     let offset = (page - 1) * limit;
-    
+
     match fetch_address_info(&address, offset, limit).await {
         Ok(info) => {
             // Calculate total pages
@@ -67,7 +70,7 @@ pub async fn get_address_handler(
             } else {
                 (info.n_tx + limit - 1) / limit // Ceiling division
             };
-            
+
             Json(AddressResponse::Success(AddressWithPagination {
                 address: info.address,
                 total_received: info.total_received,
