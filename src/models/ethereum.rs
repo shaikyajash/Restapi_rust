@@ -33,7 +33,6 @@ pub struct EvmTransaction {
 #[derive(Debug, Deserialize)]
 pub struct EtherscanTxResponse {
     pub status: String,
-    pub message: String,
     pub result: Vec<EvmTransaction>,
 }
 
@@ -41,7 +40,6 @@ pub struct EtherscanTxResponse {
 #[derive(Debug, Deserialize)]
 pub struct EtherscanBalanceResponse {
     pub status: String,
-    pub message: String,
     pub result: String,
 }
 

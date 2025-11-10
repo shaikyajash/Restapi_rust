@@ -37,7 +37,7 @@ async fn main() {
     println!("  curl http://localhost:8080/btc/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa?page=1&limit=10");
     println!("\nEthereum:");
     println!("  curl http://localhost:8080/evm/ethereum/0xYourAddress");
-    println!("  curl http://localhost:8080/evm/1/0xYourAddress?page=1&limit=10");
+    println!("  curl http://localhost:8080/evm/0xYourAddress?page=1&limit=10");
     println!("\nPolygon:");
     println!("  curl http://localhost:8080/evm/polygon/0xYourAddress?page=2&limit=20");
 
